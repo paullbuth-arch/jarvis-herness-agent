@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Jarvis Launcher — WQ7036AX Agent (OpenCode-derived fork)
 # Sources provider config from external script if available.
-set -euo pipefail
+set -eo pipefail
 
-JARVIS_ROOT="$(cd "$(dirname "$0")" && pwd)"
+JARVIS_ROOT="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
 BUN="$HOME/.bun/bin/bun"
 
 # Source provider env if not already set
 if [ -f "$JARVIS_ROOT/model.sh" ] && [ -z "${ANTHROPIC_BASE_URL:-}" ]; then
-  case "${JARVIS_PROVIDER:-flash}" in
+  case "${JARVIS_PROVIDER:-}" in
     flash|glm|kimi|qwen|xiaomi)
       source "$JARVIS_ROOT/model.sh" "$JARVIS_PROVIDER" 2>/dev/null || true
       ;;
