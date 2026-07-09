@@ -19,12 +19,15 @@ import { TuiKeybind } from "./config/keybind"
 
 export const LEADER_TOKEN = "leader"
 export const OPENCODE_BASE_MODE = "base"
+export const JARVIS_BASE_MODE = OPENCODE_BASE_MODE
 export const COMMAND_PALETTE_COMMAND = "command.palette.show"
 
-const OPENCODE_MODE_KEY = "opencode.mode"
+const OPENCODE_MODE_KEY = "jarvis.mode"
 
 export const OpencodeKeymapProvider = KeymapProvider
+export const JarvisKeymapProvider = KeymapProvider
 export const useOpencodeKeymap = useKeymap
+export const useJarvisKeymap = useKeymap
 
 export { useBindings, useKeymapSelector }
 

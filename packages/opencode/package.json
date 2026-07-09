@@ -16,7 +16,9 @@
     "dev:temporary": "bun run --conditions=browser ./src/temporary.ts"
   },
   "bin": {
-    "opencode": "./bin/opencode"
+    "opencode": "./bin/opencode",
+    "jarvis": "./bin/opencode",
+    "wq7036": "./bin/opencode"
   },
   "exports": {
     "./*": "./src/*.ts"

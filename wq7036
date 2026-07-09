@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# WQ7036 Launcher — compatibility entrypoint, same as jarvis
+exec "$(dirname "$0")/jarvis" "$@"

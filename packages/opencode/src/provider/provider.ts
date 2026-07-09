@@ -470,9 +470,9 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: provider.source === "config",
         options: {
           headers: {
-            "HTTP-Referer": "https://opencode.ai/",
-            "X-Title": "opencode",
-            "X-BILLING-INVOKE-ORIGIN": "OpenCode",
+            "HTTP-Referer": "https://jarvis.wq7036/",
+            "X-Title": "jarvis",
+            "X-BILLING-INVOKE-ORIGIN": "Jarvis",
           },
         },
       }),

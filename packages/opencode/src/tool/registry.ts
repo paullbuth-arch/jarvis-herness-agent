@@ -16,6 +16,8 @@ import { WebFetchTool } from "./webfetch"
 import { WriteTool } from "./write"
 import { InvalidTool } from "./invalid"
 import { SkillTool } from "./skill"
+import { WqToolInfos } from "./wq"
+import { WqSessionRecordTool, WqSessionSummaryTool } from "./wq_session_bridge"
 import * as Tool from "./tool"
 import { Config } from "@/config/config"
 import { type ToolContext as PluginToolContext, type ToolDefinition } from "@opencode-ai/plugin"
@@ -112,6 +114,11 @@ const layer = Layer.effect(
     const agent = yield* Agent.Service
     const codeMode = flags.experimentalCodeMode ? yield* Effect.promise(() => import("./code-mode")) : undefined
     const codeModeTool = codeMode ? yield* codeMode.CodeModeTool : undefined
+
+    // Initialize WQ7036 Jarvis tools
+    const wqTools = yield* Effect.all(WqToolInfos.map((info) => Tool.init(info)))
+    const wqSessionRecord = yield* Tool.init(WqSessionRecordTool)
+    const wqSessionSummary = yield* Tool.init(WqSessionSummaryTool)
 
     const state = yield* InstanceState.make<State>(
       Effect.fn("ToolRegistry.state")(function* (ctx) {
@@ -241,6 +248,9 @@ const layer = Layer.effect(
             ...(tool.execute ? [tool.execute] : []),
             ...(flags.experimentalLspTool ? [tool.lsp] : []),
             ...(flags.experimentalPlanMode && flags.client === "cli" ? [tool.plan] : []),
+            ...wqTools,
+            wqSessionRecord,
+            wqSessionSummary,
           ],
           task: tool.task,
           read: tool.read,

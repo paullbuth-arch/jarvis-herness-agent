@@ -12,6 +12,7 @@ import PROMPT_KIMI from "./prompt/kimi.txt"
 
 import PROMPT_CODEX from "./prompt/codex.txt"
 import PROMPT_TRINITY from "./prompt/trinity.txt"
+import PROMPT_JARVIS from "./prompt/jarvis.txt"
 import type { Provider } from "@/provider/provider"
 import type { Agent } from "@/agent/agent"
 import { Permission } from "@/permission"
@@ -24,19 +25,23 @@ import { MCP } from "@/mcp"
 import { PermissionV1 } from "@opencode-ai/core/v1/permission"
 
 export function provider(model: Provider.Model) {
-  if (model.api.id.includes("gpt-4") || model.api.id.includes("o1") || model.api.id.includes("o3"))
-    return [PROMPT_BEAST]
-  if (model.api.id.includes("gpt")) {
-    if (model.api.id.includes("codex")) {
-      return [PROMPT_CODEX]
+  const modelPrompt = (() => {
+    if (model.api.id.includes("gpt-4") || model.api.id.includes("o1") || model.api.id.includes("o3"))
+      return [PROMPT_BEAST]
+    if (model.api.id.includes("gpt")) {
+      if (model.api.id.includes("codex")) {
+        return [PROMPT_CODEX]
+      }
+      return [PROMPT_GPT]
     }
-    return [PROMPT_GPT]
-  }
-  if (model.api.id.includes("gemini-")) return [PROMPT_GEMINI]
-  if (model.api.id.includes("claude")) return [PROMPT_ANTHROPIC]
-  if (model.api.id.toLowerCase().includes("trinity")) return [PROMPT_TRINITY]
-  if (model.api.id.toLowerCase().includes("kimi")) return [PROMPT_KIMI]
-  return [PROMPT_DEFAULT]
+    if (model.api.id.includes("gemini-")) return [PROMPT_GEMINI]
+    if (model.api.id.includes("claude")) return [PROMPT_ANTHROPIC]
+    if (model.api.id.toLowerCase().includes("trinity")) return [PROMPT_TRINITY]
+    if (model.api.id.toLowerCase().includes("kimi")) return [PROMPT_KIMI]
+    return [PROMPT_DEFAULT]
+  })()
+  // Prepend Jarvis/WQ7036 identity for all models
+  return [PROMPT_JARVIS, ...modelPrompt]
 }
 
 export interface Interface {

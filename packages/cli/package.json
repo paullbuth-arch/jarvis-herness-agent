@@ -5,7 +5,9 @@
   "type": "module",
   "license": "MIT",
   "bin": {
-    "lildax": "./bin/lildax.cjs"
+    "lildax": "./bin/lildax.cjs",
+    "jarvis-cli": "./bin/lildax.cjs",
+    "wq7036-cli": "./bin/lildax.cjs"
   },
   "files": [
     "bin"
