@@ -819,7 +819,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
         name: "docs.open",
         title: "Open docs",
         run: () => {
-          open("https://opencode.ai/docs").catch(() => {}) // keep upstream docs for now
+          open("https://jarvis.wq7036/docs").catch(() => {}) // keep upstream docs for now
           dialog.clear()
         },
         category: "System",

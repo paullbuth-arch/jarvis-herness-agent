@@ -88,13 +88,13 @@ async function setup(page: Page) {
     provider: {
       all: [
         {
-          id: "opencode",
+          id: "jarvis",
           name: "OpenCode",
           models: { test: { id: "test", name: "Test", limit: { context: 200_000 } } },
         },
       ],
-      connected: ["opencode"],
-      default: { providerID: "opencode", modelID: "test" },
+      connected: ["jarvis"],
+      default: { providerID: "jarvis", modelID: "test" },
     },
     sessions: [session(sessionA, titleA, 1700000000000), session(sessionB, titleB, 1700000001000)],
     vcsDiff: diffs,

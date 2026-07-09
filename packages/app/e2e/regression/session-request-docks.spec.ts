@@ -120,7 +120,7 @@ async function mockServer(
     provider: {
       all: [
         {
-          id: "opencode",
+          id: "jarvis",
           name: "OpenCode",
           models: {
             "claude-opus-4-6": {
@@ -131,8 +131,8 @@ async function mockServer(
           },
         },
       ],
-      connected: ["opencode"],
-      default: { providerID: "opencode", modelID: "claude-opus-4-6" },
+      connected: ["jarvis"],
+      default: { providerID: "jarvis", modelID: "claude-opus-4-6" },
     },
     sessions: [
       {

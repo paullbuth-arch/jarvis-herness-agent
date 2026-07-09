@@ -57,15 +57,15 @@ async function setup(page: Page, events?: () => EventPayload[]) {
     provider: {
       all: [
         {
-          id: "opencode",
+          id: "jarvis",
           name: "OpenCode",
           models: {
             "claude-opus-4-6": { id: "claude-opus-4-6", name: "Claude Opus 4.6", limit: { context: 200_000 } },
           },
         },
       ],
-      connected: ["opencode"],
-      default: { providerID: "opencode", modelID: "claude-opus-4-6" },
+      connected: ["jarvis"],
+      default: { providerID: "jarvis", modelID: "claude-opus-4-6" },
     },
     sessions: [session(parentID, parentTitle, 1700000000000), childSession()],
     pageMessages: (sessionID) => ({ items: sessionID === parentID ? parentMessages() : [] }),
@@ -126,7 +126,7 @@ function parentMessages() {
         role: "user",
         time: { created: 1700000000000 },
         agent: "build",
-        model: { providerID: "opencode", modelID: "claude-opus-4-6" },
+        model: { providerID: "jarvis", modelID: "claude-opus-4-6" },
       },
       parts: [
         {
@@ -146,7 +146,7 @@ function parentMessages() {
         time: { created: 1700000001000, completed: 1700000002000 },
         parentID: userID,
         modelID: "claude-opus-4-6",
-        providerID: "opencode",
+        providerID: "jarvis",
         mode: "build",
         agent: "build",
         path: { cwd: directory, root: directory },

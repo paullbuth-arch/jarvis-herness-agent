@@ -22,7 +22,7 @@ Options:
 Examples:
     curl -fsSL https://github.com/paullbuth-arch/jarvis-herness-agent/releases/latest/download/install.sh | bash
     curl -fsSL https://github.com/paullbuth-arch/jarvis-herness-agent/releases/latest/download/install.sh | bash -s -- --version 1.0.180
-    ./install --binary /path/to/opencode
+    ./install --binary /path/to/jarvis
 EOF
 }
 
@@ -65,7 +65,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-INSTALL_DIR=$HOME/.opencode/bin
+INSTALL_DIR=$HOME/.jarvis/bin
 mkdir -p "$INSTALL_DIR"
 
 # If --binary is provided, skip all download/detection logic
@@ -219,7 +219,7 @@ print_message() {
 }
 
 check_version() {
-    if command -v opencode >/dev/null 2>&1; then
+    if command -v jarvis >/dev/null 2>&1; then
         jarvis_path=$(which jarvis)
 
         ## Check the installed version
@@ -340,15 +340,15 @@ download_and_install() {
         unzip -q "$tmp_dir/$filename" -d "$tmp_dir"
     fi
 
-    mv "$tmp_dir/opencode" "$INSTALL_DIR"
-    chmod 755 "${INSTALL_DIR}/opencode"
+    mv "$tmp_dir/jarvis" "$INSTALL_DIR"
+    chmod 755 "${INSTALL_DIR}/jarvis"
     rm -rf "$tmp_dir"
 }
 
 install_from_binary() {
     print_message info "\n${MUTED}Installing jarvis ${MUTED}from: ${NC}$binary_path"
-    cp "$binary_path" "${INSTALL_DIR}/opencode"
-    chmod 755 "${INSTALL_DIR}/opencode"
+    cp "$binary_path" "${INSTALL_DIR}/jarvis"
+    chmod 755 "${INSTALL_DIR}/jarvis"
 }
 
 if [ -n "$binary_path" ]; then
@@ -366,9 +366,9 @@ add_to_path() {
     if grep -Fxq "$command" "$config_file"; then
         print_message info "Command already exists in $config_file, skipping write."
     elif [[ -w $config_file ]]; then
-        echo -e "\n# opencode" >> "$config_file"
+        echo -e "\n# jarvis" >> "$config_file"
         echo "$command" >> "$config_file"
-        print_message info "${MUTED}Successfully added ${NC}opencode ${MUTED}to \$PATH in ${NC}$config_file"
+        print_message info "${MUTED}Successfully added ${NC}jarvis ${MUTED}to \$PATH in ${NC}$config_file"
     else
         print_message warning "Manually add the directory to $config_file (or similar):"
         print_message info "  $command"

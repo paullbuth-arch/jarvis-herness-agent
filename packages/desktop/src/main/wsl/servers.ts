@@ -124,7 +124,7 @@ export function createWslServersController(
   const setOpencodeCheck = (distro: string, check: WslOpencodeCheck) => {
     setState({
       opencodeChecks: {
-        ...state.opencodeChecks,
+        ...state.jarvisChecks,
         [distro]: check,
       },
     })
@@ -156,11 +156,11 @@ export function createWslServersController(
     const opencodeChecks = await Promise.all(
       unique
         .filter((distro) => distroProbeReady(state.distroProbes[distro]))
-        .filter((distro) => !state.opencodeChecks[distro])
+        .filter((distro) => !state.jarvisChecks[distro])
         .map(async (distro) => [distro, await checkOpencode(distro, opts)] as const),
     )
     if (opencodeChecks.length) {
-      setState({ opencodeChecks: { ...state.opencodeChecks, ...Object.fromEntries(opencodeChecks) } })
+      setState({ opencodeChecks: { ...state.jarvisChecks, ...Object.fromEntries(opencodeChecks) } })
     }
   }
 
@@ -365,7 +365,7 @@ export function createWslServersController(
           throw new Error(summarize(result.stderr || result.stdout) || "OpenCode installation failed")
         }
         await refreshOpencodeCheck(name, { signal: abort.signal })
-        expectOpencodeVersion(state.opencodeChecks[name]?.version ?? null, appVersion, name)
+        expectOpencodeVersion(state.jarvisChecks[name]?.version ?? null, appVersion, name)
         const id = wslServerIdToRestart(state.servers, name)
         if (id) await startServer(id)
       })
@@ -400,7 +400,7 @@ export function createWslServersController(
       persistServers(remaining)
       setState({
         servers: state.servers.filter((item) => item.config.id !== id),
-        ...(distro ? clearWslDistroState(state.distroProbes, state.opencodeChecks, distro) : {}),
+        ...(distro ? clearWslDistroState(state.distroProbes, state.jarvisChecks, distro) : {}),
       })
     },
 

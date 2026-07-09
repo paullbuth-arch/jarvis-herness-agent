@@ -41,7 +41,7 @@ test("animates todo lifecycle without replaying it across session tabs", async (
     provider: {
       all: [
         {
-          id: "opencode",
+          id: "jarvis",
           name: "OpenCode",
           models: {
             "claude-opus-4-6": {
@@ -52,8 +52,8 @@ test("animates todo lifecycle without replaying it across session tabs", async (
           },
         },
       ],
-      connected: ["opencode"],
-      default: { providerID: "opencode", modelID: "claude-opus-4-6" },
+      connected: ["jarvis"],
+      default: { providerID: "jarvis", modelID: "claude-opus-4-6" },
     },
     sessions: [session(sourceID, sourceTitle, 1700000000000), session(otherID, otherTitle, 1700000001000)],
     pageMessages: () => ({ items: [] }),

@@ -136,7 +136,7 @@ export function buildAuthorizeUrl(
     state,
     nonce,
     plan: "generic",
-    referrer: "opencode",
+    referrer: "jarvis",
   })
   return `${options.authorizeUrl ?? AUTHORIZE_URL}?${params.toString()}`
 }

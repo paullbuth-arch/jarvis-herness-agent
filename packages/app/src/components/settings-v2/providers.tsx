@@ -17,8 +17,8 @@ type ProviderSource = "env" | "api" | "config" | "custom"
 type ProviderItem = ReturnType<ReturnType<typeof useProviders>["connected"]>[number]
 
 const PROVIDER_NOTES = [
-  { match: (id: string) => id === "opencode", key: "dialog.provider.opencode.note" },
-  { match: (id: string) => id === "opencode-go", key: "dialog.provider.opencodeGo.tagline" },
+  { match: (id: string) => id === "opencode", key: "dialog.provider.jarvis.note" },
+  { match: (id: string) => id === "opencode-go", key: "dialog.provider.jarvisGo.tagline" },
   { match: (id: string) => id === "anthropic", key: "dialog.provider.anthropic.note" },
   { match: (id: string) => id.startsWith("github-copilot"), key: "dialog.provider.copilot.note" },
   { match: (id: string) => id === "openai", key: "dialog.provider.openai.note" },
@@ -45,7 +45,7 @@ export const SettingsProvidersV2: Component<{ onBack?: () => void }> = (props) =
   const connected = createMemo(() => {
     return providers
       .connected()
-      .filter((p) => p.id !== "opencode" || Object.values(p.models).find((m) => m.cost?.input))
+      .filter((p) => p.id !== "jarvis" || Object.values(p.models).find((m) => m.cost?.input))
   })
 
   const popular = createMemo(() => {

@@ -29,13 +29,13 @@ test("keeps the review tree and terminal sized when both panels are open", async
     provider: {
       all: [
         {
-          id: "opencode",
+          id: "jarvis",
           name: "OpenCode",
           models: { test: { id: "test", name: "Test", limit: { context: 200_000 } } },
         },
       ],
-      connected: ["opencode"],
-      default: { providerID: "opencode", modelID: "test" },
+      connected: ["jarvis"],
+      default: { providerID: "jarvis", modelID: "test" },
     },
     sessions: [
       {

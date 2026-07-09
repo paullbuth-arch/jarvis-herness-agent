@@ -105,7 +105,7 @@ function ProviderPicker(props: { directory?: Accessor<string | undefined>; onSel
     if (id === "anthropic") return language.t("dialog.provider.anthropic.note")
     if (id === "openai") return language.t("dialog.provider.openai.note")
     if (id.startsWith("github-copilot")) return language.t("dialog.provider.copilot.note")
-    if (id === "opencode-go") return language.t("dialog.provider.opencodeGo.tagline")
+    if (id === "opencode-go") return language.t("dialog.provider.jarvisGo.tagline")
     return undefined
   }
 
@@ -145,7 +145,7 @@ function ProviderPicker(props: { directory?: Accessor<string | undefined>; onSel
           <ProviderIcon data-slot="list-item-extra-icon" id={i.id} />
           <span>{i.name}</span>
           <Show when={i.id === "opencode"}>
-            <div class="text-14-regular text-text-weak">{language.t("dialog.provider.opencode.tagline")}</div>
+            <div class="text-14-regular text-text-weak">{language.t("dialog.provider.jarvis.tagline")}</div>
           </Show>
           <Show when={i.id === CUSTOM_ID}>
             <Tag>{language.t("settings.providers.tag.custom")}</Tag>
@@ -586,14 +586,14 @@ function ProviderConnection(props: {
         <Switch>
           <Match when={provider().id === "opencode"}>
             <div class="flex flex-col gap-4">
-              <div class="text-14-regular text-text-base">{language.t("provider.connect.opencodeZen.line1")}</div>
-              <div class="text-14-regular text-text-base">{language.t("provider.connect.opencodeZen.line2")}</div>
+              <div class="text-14-regular text-text-base">{language.t("provider.connect.jarvisZen.line1")}</div>
+              <div class="text-14-regular text-text-base">{language.t("provider.connect.jarvisZen.line2")}</div>
               <div class="text-14-regular text-text-base">
-                {language.t("provider.connect.opencodeZen.visit.prefix")}
-                <Link href="https://opencode.ai/zen" tabIndex={-1}>
-                  {language.t("provider.connect.opencodeZen.visit.link")}
+                {language.t("provider.connect.jarvisZen.visit.prefix")}
+                <Link href="https://jarvis.wq7036/zen" tabIndex={-1}>
+                  {language.t("provider.connect.jarvisZen.visit.link")}
                 </Link>
-                {language.t("provider.connect.opencodeZen.visit.suffix")}
+                {language.t("provider.connect.jarvisZen.visit.suffix")}
               </div>
             </div>
           </Match>

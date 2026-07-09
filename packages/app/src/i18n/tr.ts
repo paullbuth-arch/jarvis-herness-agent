@@ -102,9 +102,9 @@ export const dict = {
   "dialog.provider.group.popular": "Popüler",
   "dialog.provider.group.other": "Diğer",
   "dialog.provider.tag.recommended": "Önerilen",
-  "dialog.provider.opencode.note": "Claude, GPT, Gemini ve daha fazlasını içeren seçilmiş modeller",
-  "dialog.provider.opencode.tagline": "Güvenilir optimize edilmiş modeller",
-  "dialog.provider.opencodeGo.tagline": "Herkes için düşük maliyetli abonelik",
+  "dialog.provider.jarvis.note": "Claude, GPT, Gemini ve daha fazlasını içeren seçilmiş modeller",
+  "dialog.provider.jarvis.tagline": "Güvenilir optimize edilmiş modeller",
+  "dialog.provider.jarvisGo.tagline": "Herkes için düşük maliyetli abonelik",
   "dialog.provider.anthropic.note": "Pro ve Max dahil Claude modellerine doğrudan erişim",
   "dialog.provider.copilot.note": "GitHub Copilot üzerinden kodlama yardımı için yapay zekâ modelleri",
   "dialog.provider.openai.note": "Hızlı ve yetenekli genel yapay zekâ görevleri için GPT modelleri",
@@ -136,13 +136,13 @@ export const dict = {
   "provider.connect.apiKey.label": "{{provider}} API anahtarı",
   "provider.connect.apiKey.placeholder": "API anahtarı",
   "provider.connect.apiKey.required": "API anahtarı gerekli",
-  "provider.connect.opencodeZen.line1":
+  "provider.connect.jarvisZen.line1":
     "OpenCode Zen, kodlama ajanları için seçilmiş güvenilir optimize edilmiş modellere erişim sağlar.",
-  "provider.connect.opencodeZen.line2":
+  "provider.connect.jarvisZen.line2":
     "Tek bir API anahtarıyla Claude, GPT, Gemini, GLM ve daha fazlası gibi modellere erişebilirsiniz.",
-  "provider.connect.opencodeZen.visit.prefix": "",
-  "provider.connect.opencodeZen.visit.link": "opencode.ai/zen",
-  "provider.connect.opencodeZen.visit.suffix": " adresini ziyaret ederek API anahtarınızı alın.",
+  "provider.connect.jarvisZen.visit.prefix": "",
+  "provider.connect.jarvisZen.visit.link": "jarvis.wq7036/zen",
+  "provider.connect.jarvisZen.visit.suffix": " adresini ziyaret ederek API anahtarınızı alın.",
   "provider.connect.oauth.code.visit.prefix":
     "Hesabınızı bağlamak ve OpenCode'da {{provider}} modellerini kullanmak için ",
   "provider.connect.oauth.code.visit.link": "bu bağlantıya",

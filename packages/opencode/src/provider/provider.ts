@@ -185,7 +185,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
       const ok =
         hasKey ||
         Boolean(yield* dep.auth(input.id)) ||
-        Boolean((yield* dep.config()).provider?.["opencode"]?.options?.apiKey)
+        Boolean((yield* dep.config()).provider?.["jarvis"]?.options?.apiKey)
 
       if (!ok) {
         for (const [key, value] of Object.entries(input.models)) {
@@ -449,9 +449,9 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://opencode.ai/",
-            "X-Title": "opencode",
-            "X-Source": "opencode",
+            "HTTP-Referer": "https://jarvis.wq7036/",
+            "X-Title": "jarvis",
+            "X-Source": "jarvis",
           },
         },
       }),
@@ -460,8 +460,8 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://opencode.ai/",
-            "X-Title": "opencode",
+            "HTTP-Referer": "https://jarvis.wq7036/",
+            "X-Title": "jarvis",
           },
         },
       }),
@@ -481,8 +481,8 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "http-referer": "https://opencode.ai/",
-            "x-title": "opencode",
+            "http-referer": "https://jarvis.wq7036/",
+            "x-title": "jarvis",
           },
         },
       }),
@@ -587,8 +587,8 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://opencode.ai/",
-            "X-Title": "opencode",
+            "HTTP-Referer": "https://jarvis.wq7036/",
+            "X-Title": "jarvis",
           },
         },
       }),
@@ -836,7 +836,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "X-Cerebras-3rd-Party-Integration": "opencode",
+            "X-Cerebras-3rd-Party-Integration": "jarvis",
           },
         },
       }),
@@ -845,8 +845,8 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://opencode.ai/",
-            "X-Title": "opencode",
+            "HTTP-Referer": "https://jarvis.wq7036/",
+            "X-Title": "jarvis",
           },
         },
       }),

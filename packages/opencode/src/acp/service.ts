@@ -92,7 +92,7 @@ export function make(input: {
   const initialize = Effect.fn("ACP.initialize")(function* (params: InitializeRequest) {
     const started = performance.now()
     const authMethod: AuthMethod = {
-      description: "Run `opencode auth login` in the terminal",
+      description: "Run `jarvis auth login` in the terminal",
       name: "Login with opencode",
       id: AuthMethodID,
     }
@@ -784,7 +784,7 @@ function defaultModelFromConfig(
   // First-session ACP startup must not scan historical sessions just to infer
   // a default. Configured model, opencode provider, then sorted best model keep
   // the protocol response deterministic without extra session/message reads.
-  const opencodeProvider = providers[ProviderV2.ID.make("opencode")]
+  const opencodeProvider = providers[ProviderV2.ID.make("jarvis")]
   const opencodeModel = opencodeProvider ? Provider.sort(Object.values(opencodeProvider.models))[0] : undefined
   if (opencodeProvider && opencodeModel) return { providerID: opencodeProvider.id, modelID: opencodeModel.id }
 

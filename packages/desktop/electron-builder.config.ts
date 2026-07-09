@@ -11,7 +11,7 @@ const rootDir = path.resolve(packageDir, "../..")
 const signScript = path.join(rootDir, "script", "sign-windows.ps1")
 // The Electron 42 packaging update briefly installed Linux launchers/icons under
 // "opencode-desktop". Keep that hidden desktop entry around so existing GNOME/KDE
-// pins still resolve after the canonical app id changes back to ai.opencode.desktop.
+// pins still resolve after the canonical app id changes back to ai.jarvis.desktop.
 const legacyDesktopEntry = path.join(packageDir, "resources", "linux", "opencode-desktop.desktop")
 const legacyDesktopEntryFpm = `${legacyDesktopEntry}=/usr/share/applications/opencode-desktop.desktop`
 
@@ -33,9 +33,9 @@ const channel = (() => {
 })()
 
 const APP_IDS = {
-  dev: "ai.opencode.desktop.dev",
-  beta: "ai.opencode.desktop.beta",
-  prod: "ai.opencode.desktop",
+  dev: "ai.jarvis.desktop.dev",
+  beta: "ai.jarvis.desktop.beta",
+  prod: "ai.jarvis.desktop",
 } as const
 
 const getBase = (appId: string): Configuration => ({
@@ -45,8 +45,8 @@ const getBase = (appId: string): Configuration => ({
     buildResources: "resources",
   },
   // Linux launchers are .desktop files, so this is the desktop file name,
-  // not just the app id. For prod, app id "ai.opencode.desktop" becomes
-  // "ai.opencode.desktop.desktop".
+  // not just the app id. For prod, app id "ai.jarvis.desktop" becomes
+  // "ai.jarvis.desktop.desktop".
   // https://developer.gnome.org/documentation/guidelines/maintainer/integrating.html
   // https://www.electron.build/docs/linux/
   extraMetadata: {
@@ -75,7 +75,7 @@ const getBase = (appId: string): Configuration => ({
   },
   protocols: {
     name: "OpenCode",
-    schemes: ["opencode"],
+    schemes: ["jarvis"],
   },
   win: {
     icon: `resources/icons/icon.ico`,
@@ -116,7 +116,7 @@ function getConfig() {
         ...base,
         appId,
         productName: "OpenCode Dev",
-        rpm: { packageName: "opencode-dev" },
+        rpm: { packageName: "jarvis-dev" },
       }
     }
     case "beta": {
@@ -124,7 +124,7 @@ function getConfig() {
         ...base,
         appId,
         productName: "OpenCode Beta",
-        protocols: { name: "OpenCode Beta", schemes: ["opencode"] },
+        protocols: { name: "OpenCode Beta", schemes: ["jarvis"] },
         publish: { provider: "github", owner: "anomalyco", repo: "opencode-beta", channel: "latest" },
         rpm: { packageName: "opencode-beta" },
       }
@@ -134,10 +134,10 @@ function getConfig() {
         ...base,
         appId,
         productName: "OpenCode",
-        protocols: { name: "OpenCode", schemes: ["opencode"] },
-        publish: { provider: "github", owner: "anomalyco", repo: "opencode", channel: "latest" },
+        protocols: { name: "OpenCode", schemes: ["jarvis"] },
+        publish: { provider: "github", owner: "anomalyco", repo: "jarvis", channel: "latest" },
         deb: { fpm: [legacyDesktopEntryFpm] },
-        rpm: { packageName: "opencode", fpm: [legacyDesktopEntryFpm] },
+        rpm: { packageName: "jarvis", fpm: [legacyDesktopEntryFpm] },
       }
     }
   }
