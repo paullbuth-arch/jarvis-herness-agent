@@ -1,9 +1,9 @@
 import { Argument, Flag } from "effect/unstable/cli"
 import { Spec } from "../framework/spec"
 
-declare const OPENCODE_CLI_NAME: string | undefined
+declare const JARVIS_CLI_NAME: string | undefined
 
-export const Commands = Spec.make(typeof OPENCODE_CLI_NAME === "string" ? OPENCODE_CLI_NAME : "jarvis", {
+export const Commands = Spec.make(typeof JARVIS_CLI_NAME === "string" ? JARVIS_CLI_NAME : "jarvis", {
   description: "WQ7036AX Jarvis Agent — SDK-aware coding agent for the V861 reGlasses platform",
   commands: [
     Spec.make("api", {

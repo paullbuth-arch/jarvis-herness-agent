@@ -1,6 +1,6 @@
 import "../index.css"
 import { Meta, Title } from "@solidjs/meta"
-import { ProviderIcon } from "@opencode-ai/ui/provider-icon"
+import { ProviderIcon } from "@jarvis/ui/provider-icon"
 import {
   getStatsLabData,
   getStatsHomeData,
@@ -9,7 +9,7 @@ import {
   type ModelUsagePoint,
   type StatsHomeData,
   type StatsLabData,
-} from "@opencode-ai/stats-core/domain/home"
+} from "@jarvis/stats-core/domain/home"
 import { createAsync, query, useParams } from "@solidjs/router"
 import { createMemo, createSignal, createUniqueId, For, onMount, Show, type JSX } from "solid-js"
 import { getRequestEvent } from "solid-js/web"

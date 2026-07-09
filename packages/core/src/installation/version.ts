@@ -1,8 +1,8 @@
 declare global {
-  const OPENCODE_VERSION: string
-  const OPENCODE_CHANNEL: string
+  const JARVIS_VERSION: string
+  const JARVIS_CHANNEL: string
 }
 
-export const InstallationVersion = typeof OPENCODE_VERSION === "string" ? OPENCODE_VERSION : "local"
-export const InstallationChannel = typeof OPENCODE_CHANNEL === "string" ? OPENCODE_CHANNEL : "local"
+export const InstallationVersion = typeof JARVIS_VERSION === "string" ? JARVIS_VERSION : "local"
+export const InstallationChannel = typeof JARVIS_CHANNEL === "string" ? JARVIS_CHANNEL : "local"
 export const InstallationLocal = InstallationChannel === "local"

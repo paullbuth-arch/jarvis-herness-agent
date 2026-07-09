@@ -82,8 +82,8 @@ async function stop() {
 
 function prepareSidecarEnv(password: string, userDataPath: string) {
   Object.assign(process.env, {
-    OPENCODE_SERVER_USERNAME: "jarvis",
-    OPENCODE_SERVER_PASSWORD: password,
+    JARVIS_SERVER_USERNAME: "jarvis",
+    JARVIS_SERVER_PASSWORD: password,
     XDG_STATE_HOME: process.env.XDG_STATE_HOME ?? userDataPath,
   })
 }

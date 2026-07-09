@@ -10,13 +10,13 @@ import {
   type TuiPluginStatus,
   type TuiSlotPlugin,
   type TuiTheme,
-} from "@opencode-ai/plugin/tui"
+} from "@jarvis/plugin/tui"
 import path from "path"
 import { fileURLToPath } from "url"
 import { TuiConfig } from "@/config/tui"
-import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder"
-import { errorData, errorMessage } from "@opencode-ai/tui/util/error"
-import { isRecord } from "@opencode-ai/tui/util/record"
+import { AppNodeBuilder } from "@jarvis/core/effect/app-node-builder"
+import { errorData, errorMessage } from "@jarvis/tui/util/error"
+import { isRecord } from "@jarvis/tui/util/record"
 import { resolveHostAttentionSoundPaths } from "@/config/tui-host-attention"
 import {
   readPackageThemes,
@@ -29,20 +29,20 @@ import {
 import { PluginLoader } from "@/plugin/loader"
 import { PluginMeta } from "@/plugin/meta"
 import { installPlugin as installModulePlugin, patchPluginConfig, readPluginManifest } from "@/plugin/install"
-import { hasTheme, upsertTheme } from "@opencode-ai/tui/context/theme"
-import { Global } from "@opencode-ai/core/global"
+import { hasTheme, upsertTheme } from "@jarvis/tui/context/theme"
+import { Global } from "@jarvis/core/global"
 import { Filesystem } from "@/util/filesystem"
 import { Process } from "@/util/process"
-import { Flock } from "@opencode-ai/core/util/flock"
-import { Flag } from "@opencode-ai/core/flag/flag"
+import { Flock } from "@jarvis/core/util/flock"
+import { Flag } from "@jarvis/core/flag/flag"
 import { internalTuiPlugins, type InternalTuiPlugin } from "./internal"
-import type { HostPluginApi, HostSlots } from "@opencode-ai/tui/plugin/slots"
+import type { HostPluginApi, HostSlots } from "@jarvis/tui/plugin/slots"
 import { ConfigPlugin } from "@/config/plugin"
-import { ConfigPluginV1 } from "@opencode-ai/core/v1/config/plugin"
-import { createCommandShim } from "@opencode-ai/tui/plugin/command-shim"
+import { ConfigPluginV1 } from "@jarvis/core/v1/config/plugin"
+import { createCommandShim } from "@jarvis/tui/plugin/command-shim"
 import { RuntimeFlags } from "@/effect/runtime-flags"
 import { Effect } from "effect"
-import { createPluginRuntime, type PluginRuntime, type TuiPluginHost } from "@opencode-ai/tui/plugin/runtime"
+import { createPluginRuntime, type PluginRuntime, type TuiPluginHost } from "@jarvis/tui/plugin/runtime"
 
 ensureRuntimePluginSupport({ additional: keymapRuntimeModules })
 
@@ -1086,8 +1086,8 @@ async function load(input: {
       }).pipe(Effect.provide(AppNodeBuilder.build(RuntimeFlags.node))),
     )
     const pluginOrigins = config.plugin_origins ?? (await TuiConfig.pluginOrigins())
-    const records = Flag.OPENCODE_PURE ? [] : pluginOrigins
-    if (Flag.OPENCODE_PURE && pluginOrigins.length) {
+    const records = Flag.JARVIS_PURE ? [] : pluginOrigins
+    if (Flag.JARVIS_PURE && pluginOrigins.length) {
     }
 
     for (const item of internalTuiPlugins(flags)) {

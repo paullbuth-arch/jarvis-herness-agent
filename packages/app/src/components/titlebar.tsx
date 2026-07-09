@@ -1,15 +1,15 @@
 import { createEffect, createMemo, createResource, createSignal, Match, onMount, Show, Switch, untrack } from "solid-js"
 import { createStore } from "solid-js/store"
 import { useLocation, useNavigate, useParams } from "@solidjs/router"
-import { IconButton } from "@opencode-ai/ui/icon-button"
-import { Icon } from "@opencode-ai/ui/icon"
-import { Button } from "@opencode-ai/ui/button"
-import { Tooltip, TooltipKeybind } from "@opencode-ai/ui/tooltip"
-import { useTheme } from "@opencode-ai/ui/theme/context"
-import { IconButtonV2 } from "@opencode-ai/ui/v2/icon-button-v2"
-import { Icon as IconV2 } from "@opencode-ai/ui/v2/icon"
-import { KeybindV2 } from "@opencode-ai/ui/v2/keybind-v2"
-import { TooltipV2 } from "@opencode-ai/ui/v2/tooltip-v2"
+import { IconButton } from "@jarvis/ui/icon-button"
+import { Icon } from "@jarvis/ui/icon"
+import { Button } from "@jarvis/ui/button"
+import { Tooltip, TooltipKeybind } from "@jarvis/ui/tooltip"
+import { useTheme } from "@jarvis/ui/theme/context"
+import { IconButtonV2 } from "@jarvis/ui/v2/icon-button-v2"
+import { Icon as IconV2 } from "@jarvis/ui/v2/icon"
+import { KeybindV2 } from "@jarvis/ui/v2/keybind-v2"
+import { TooltipV2 } from "@jarvis/ui/v2/tooltip-v2"
 
 import { LayoutRoute, useLayout } from "@/context/layout"
 import { usePlatform } from "@/context/platform"
@@ -742,9 +742,9 @@ function TitlebarUpdateIconButton(props: { state: TitlebarUpdatePillState }) {
 function ChannelIndicator() {
   return (
     <>
-      {["beta", "dev"].includes(import.meta.env.VITE_OPENCODE_CHANNEL) && (
+      {["beta", "dev"].includes(import.meta.env.VITE_JARVIS_CHANNEL) && (
         <div class="bg-icon-interactive-base text-[#FFF] font-medium px-2 rounded-sm uppercase font-mono">
-          {import.meta.env.VITE_OPENCODE_CHANNEL.toUpperCase()}
+          {import.meta.env.VITE_JARVIS_CHANNEL.toUpperCase()}
         </div>
       )}
     </>

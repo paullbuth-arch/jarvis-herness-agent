@@ -1,5 +1,5 @@
-import type { Agent, Project, ProviderListResponse } from "@opencode-ai/sdk/v2/client"
-import { NormalizedProviderListResponse } from "@opencode-ai/session-ui/context"
+import type { Agent, Project, ProviderListResponse } from "@jarvis/sdk/v2/client"
+import { NormalizedProviderListResponse } from "@jarvis/session-ui/context"
 export { pathKey as directoryKey, type PathKey as DirectoryKey } from "@/utils/path-key"
 
 export const cmp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0)

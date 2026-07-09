@@ -1,4 +1,4 @@
-import { Location } from "@opencode-ai/core/location"
+import { Location } from "@jarvis/core/location"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/unstable/httpapi"
 import { Api } from "../api"

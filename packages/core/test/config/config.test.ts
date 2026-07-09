@@ -724,7 +724,7 @@ describe("Config", () => {
     ),
   )
 
-  it.live("loads global, ancestor, and .opencode configuration up to the project boundary", () =>
+  it.live("loads global, ancestor, and .jarvis configuration up to the project boundary", () =>
     Effect.acquireRelease(
       Effect.promise(() => tmpdir()),
       (tmp) => Effect.promise(() => tmp[Symbol.asyncDispose]()),
@@ -738,17 +738,17 @@ describe("Config", () => {
           yield* Effect.promise(async () => {
             await fs.mkdir(global, { recursive: true })
             await fs.mkdir(directory, { recursive: true })
-            await fs.mkdir(path.join(root, ".opencode"), { recursive: true })
-            await fs.mkdir(path.join(directory, ".opencode"), { recursive: true })
+            await fs.mkdir(path.join(root, ".jarvis"), { recursive: true })
+            await fs.mkdir(path.join(directory, ".jarvis"), { recursive: true })
             await Promise.all([
               fs.writeFile(path.join(tmp.path, "jarvis.json"), JSON.stringify({ $schema: "outside" })),
               fs.writeFile(path.join(global, "jarvis.json"), JSON.stringify({ $schema: "global" })),
               fs.writeFile(path.join(root, "jarvis.json"), JSON.stringify({ $schema: "root" })),
               fs.writeFile(path.join(parent, "jarvis.jsonc"), JSON.stringify({ $schema: "parent" })),
               fs.writeFile(path.join(directory, "jarvis.json"), JSON.stringify({ $schema: "directory" })),
-              fs.writeFile(path.join(root, ".opencode", "jarvis.json"), JSON.stringify({ $schema: "root-dot" })),
+              fs.writeFile(path.join(root, ".jarvis", "jarvis.json"), JSON.stringify({ $schema: "root-dot" })),
               fs.writeFile(
-                path.join(directory, ".opencode", "jarvis.jsonc"),
+                path.join(directory, ".jarvis", "jarvis.jsonc"),
                 JSON.stringify({ $schema: "directory-dot" }),
               ),
             ])
@@ -761,8 +761,8 @@ describe("Config", () => {
 
             expect(entries.filter((entry) => entry.type === "directory").map((entry) => entry.path)).toEqual([
               AbsolutePath.make(global),
-              AbsolutePath.make(path.join(root, ".opencode")),
-              AbsolutePath.make(path.join(directory, ".opencode")),
+              AbsolutePath.make(path.join(root, ".jarvis")),
+              AbsolutePath.make(path.join(directory, ".jarvis")),
             ])
             expect(documents.map((document) => document.info.$schema)).toEqual([
               "global",
@@ -779,9 +779,9 @@ describe("Config", () => {
               "parent",
               "directory",
               "root-dot",
-              AbsolutePath.make(path.join(root, ".opencode")),
+              AbsolutePath.make(path.join(root, ".jarvis")),
               "directory-dot",
-              AbsolutePath.make(path.join(directory, ".opencode")),
+              AbsolutePath.make(path.join(directory, ".jarvis")),
             ])
           }).pipe(
             Effect.provide(
