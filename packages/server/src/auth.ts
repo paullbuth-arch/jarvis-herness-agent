@@ -29,7 +29,7 @@ export class Config extends Context.Service<Config, Info>()("@opencode/ServerAut
         return Config.of(
           yield* EffectConfig.all({
             password: EffectConfig.string("JARVIS_SERVER_PASSWORD").pipe(EffectConfig.option),
-            username: EffectConfig.string("JARVIS_SERVER_USERNAME").pipe(EffectConfig.withDefault("jarvis")),
+            username: EffectConfig.string("JARVIS_SERVER_USERNAME").pipe(EffectConfig.withDefault("opencode")),
           }),
         )
       }),
@@ -53,7 +53,7 @@ export function header(credentials?: Credentials) {
   const password = credentials?.password ?? process.env.JARVIS_SERVER_PASSWORD
   if (!password) return undefined
 
-  return `Basic ${Buffer.from(`${credentials?.username ?? process.env.JARVIS_SERVER_USERNAME ?? "jarvis"}:${password}`).toString("base64")}`
+  return `Basic ${Buffer.from(`${credentials?.username ?? process.env.JARVIS_SERVER_USERNAME ?? "opencode"}:${password}`).toString("base64")}`
 }
 
 export function headers(credentials?: Credentials) {

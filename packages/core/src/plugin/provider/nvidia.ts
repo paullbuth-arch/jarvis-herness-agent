@@ -13,7 +13,7 @@ export const NvidiaPlugin = define({
           evt.provider.update(item.provider.id, (provider) => {
             provider.request.headers["HTTP-Referer"] = "https://jarvis.wq7036/"
             provider.request.headers["X-Title"] = "jarvis"
-            provider.request.headers["X-BILLING-INVOKE-ORIGIN"] ??= "OpenCode"
+            provider.request.headers["X-BILLING-INVOKE-ORIGIN"] ??= "Jarvis"
           })
         }
       }),

@@ -93,7 +93,7 @@ export function make(input: {
     const started = performance.now()
     const authMethod: AuthMethod = {
       description: "Run `jarvis auth login` in the terminal",
-      name: "Login with opencode",
+      name: "Login with jarvis",
       id: AuthMethodID,
     }
 

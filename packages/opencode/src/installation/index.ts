@@ -123,8 +123,8 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
     )
 
     const getBrewFormula = Effect.fnUntraced(function* () {
-      const tapFormula = yield* text(["brew", "list", "--formula", "anomalyco/tap/opencode"])
-      if (tapFormula.includes("jarvis")) return "anomalyco/tap/opencode"
+      const tapFormula = yield* text(["brew", "list", "--formula", "paullbuth-arch/jarvis-herness-agent"])
+      if (tapFormula.includes("jarvis")) return "paullbuth-arch/jarvis-herness-agent"
       const coreFormula = yield* text(["brew", "list", "--formula", "jarvis"])
       if (coreFormula.includes("jarvis")) return "jarvis"
       return "jarvis"
@@ -197,7 +197,7 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
         for (const check of checks) {
           const output = yield* check.command()
           const installedName =
-            check.name === "brew" || check.name === "choco" || check.name === "scoop" ? "jarvis" : "opencode-ai"
+            check.name === "brew" || check.name === "choco" || check.name === "scoop" ? "jarvis" : "jarvis-herness-agent"
           if (output.includes(installedName)) {
             return check.name
           }
@@ -227,7 +227,7 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
         if (detectedMethod === "npm" || detectedMethod === "bun" || detectedMethod === "pnpm") {
           const response = yield* httpOk.execute(
             HttpClientRequest.get(
-              `${yield* NpmConfig.registry(process.cwd())}/opencode-ai/${InstallationChannel}`,
+              `${yield* NpmConfig.registry(process.cwd())}/jarvis-herness-agent/${InstallationChannel}`,
             ).pipe(HttpClientRequest.acceptJson),
           )
           const data = yield* HttpClientResponse.schemaBodyJson(NpmPackage)(response)
@@ -269,13 +269,13 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
             upgradeResult = yield* upgradeCurl(target)
             break
           case "npm":
-            upgradeResult = yield* run(["npm", "install", "-g", `opencode-ai@${target}`])
+            upgradeResult = yield* run(["npm", "install", "-g", `jarvis-herness-agent@${target}`])
             break
           case "pnpm":
-            upgradeResult = yield* run(["pnpm", "install", "-g", `opencode-ai@${target}`])
+            upgradeResult = yield* run(["pnpm", "install", "-g", `jarvis-herness-agent@${target}`])
             break
           case "bun":
-            upgradeResult = yield* run(["bun", "install", "-g", `opencode-ai@${target}`])
+            upgradeResult = yield* run(["bun", "install", "-g", `jarvis-herness-agent@${target}`])
             break
           case "brew": {
             const formula = yield* getBrewFormula()
