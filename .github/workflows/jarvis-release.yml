@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   build-and-release:
@@ -33,8 +34,8 @@ jobs:
       - name: Package binary
         run: |
           cd packages/opencode/dist/opencode-linux-x64/bin
-          tar -czf ../../../../jarvis-linux-x64.tar.gz jarvis
-          cd ../../../..
+          tar -czf jarvis-linux-x64.tar.gz jarvis
+          mv jarvis-linux-x64.tar.gz "$GITHUB_WORKSPACE"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -45,14 +46,24 @@ jobs:
 
             WQ7036AX Jarvis Agent — SDK-aware coding agent for the V861 reGlasses platform.
 
-            ### Install
+            ### Install via npm
+            ```bash
+            npm install -g jarvis-agent
+            jarvis --help
+            ```
 
+            ### Install via curl
             ```bash
             curl -fsSL https://github.com/paullbuth-arch/jarvis-herness-agent/releases/latest/download/install.sh | bash
             ```
 
             ### Manual Download
-
             - [jarvis-linux-x64.tar.gz](https://github.com/paullbuth-arch/jarvis-herness-agent/releases/download/${{ github.ref_name }}/jarvis-linux-x64.tar.gz)
           files: |
-            packages/opencode/dist/jarvis-linux-x64.tar.gz
+            jarvis-linux-x64.tar.gz
+
+      - name: Publish to npm
+        run: |
+          cd publish
+          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+          npm publish --access public --registry https://registry.npmjs.org/

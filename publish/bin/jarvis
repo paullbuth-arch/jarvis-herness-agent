@@ -1,0 +1,103 @@
+#!/usr/bin/env node
+// Jarvis bootstrap — downloads the platform binary from GitHub Releases
+// and executes it. Falls back to bun source execution if binary unavailable.
+
+const childProcess = require("child_process")
+const fs = require("fs")
+const path = require("path")
+const os = require("os")
+
+const REPO = "paullbuth-arch/jarvis-herness-agent"
+const BIN_NAME = "jarvis"
+
+function run(target) {
+  const child = childProcess.spawn(target, process.argv.slice(2), { stdio: "inherit" })
+  child.on("error", (e) => { console.error(e.message); process.exit(1) })
+  const fwds = {}
+  for (const sig of ["SIGINT", "SIGTERM", "SIGHUP"]) {
+    fwds[sig] = () => { try { child.kill(sig) } catch {} }
+    process.on(sig, fwds[sig])
+  }
+  child.on("exit", (code, sig) => {
+    for (const s of ["SIGINT", "SIGTERM", "SIGHUP"]) process.removeListener(s, fwds[s])
+    if (sig) { process.kill(process.pid, sig); return }
+    process.exit(typeof code === "number" ? code : 0)
+  })
+}
+
+function platformKey() {
+  const p = { darwin: "darwin", linux: "linux", win32: "windows" }[os.platform()] || os.platform()
+  const a = { x64: "x64", arm64: "arm64" }[os.arch()] || os.arch()
+  return `${p}-${a}`
+}
+
+// Check for cached binary
+const scriptDir = path.dirname(fs.realpathSync(__filename))
+const cacheDir = path.join(os.homedir(), ".jarvis", "bin")
+const cacheBinary = path.join(cacheDir, BIN_NAME)
+const versionFile = path.join(cacheDir, "version")
+
+async function downloadBinary(version) {
+  const key = platformKey()
+  const url = `https://github.com/${REPO}/releases/download/${version}/jarvis-${key}.tar.gz`
+
+  const { execSync } = require("child_process")
+  try {
+    if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true })
+
+    // Use curl to download
+    const tmp = path.join(cacheDir, `.jarvis-tmp-${Date.now()}`)
+    execSync(`curl -fsSL "${url}" -o "${tmp}.tar.gz"`, { stdio: "inherit" })
+    execSync(`tar -xzf "${tmp}.tar.gz" -C "${cacheDir}"`, { stdio: "inherit" })
+    fs.writeFileSync(versionFile, version)
+    fs.rmSync(`${tmp}.tar.gz`, { force: true })
+    return cacheBinary
+  } catch {
+    return null
+  }
+}
+
+async function main() {
+  // Try cached binary first
+  if (fs.existsSync(cacheBinary)) {
+    run(cacheBinary)
+    return
+  }
+
+  // Try downloading latest release
+  let version = "v0.1.0"
+  try {
+    const https = require("https")
+    const opts = { hostname: "api.github.com", path: `/repos/${REPO}/releases/latest`, headers: { "User-Agent": "jarvis" } }
+    const resp = await new Promise((resolve, reject) => {
+      https.get(opts, (res) => {
+        let data = ""
+        res.on("data", (d) => data += d)
+        res.on("end", () => {
+          try { resolve(JSON.parse(data)) } catch(e) { reject(e) }
+        })
+      }).on("error", reject)
+    })
+    if (resp.tag_name) version = resp.tag_name
+  } catch {}
+
+  const binary = await downloadBinary(version)
+  if (binary) {
+    run(binary)
+    return
+  }
+
+  // Fallback: try bun
+  console.log("Binary download failed. Trying bun...")
+  try {
+    run("bun")
+    return
+  } catch {}
+
+  console.error("Jarvis requires either a prebuilt binary or bun installed.")
+  console.error("Install bun: curl -fsSL https://bun.sh/install | bash")
+  console.error("Or download binary: https://github.com/" + REPO + "/releases")
+  process.exit(1)
+}
+
+main()
