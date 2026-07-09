@@ -55,22 +55,8 @@ jobs:
           files: |
             jarvis-linux-x64.tar.gz
 
-      - name: Publish to npm
-        run: |
-          set -e
-          cd publish
-
-          if [ -z "${NPM_TOKEN}" ]; then
-            echo "ERROR: NPM_TOKEN is empty! Check GitHub Secrets."
-            exit 1
-          fi
-          echo "NPM_TOKEN length: ${#NPM_TOKEN}"
-
-          cat > .npmrc << NPMRC
-          //registry.npmjs.org/:_authToken=${NPM_TOKEN}
-          NPMRC
-
-          echo "=== .npmrc created (token hidden) ==="
-          npm publish --access public --loglevel verbose
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: publish
+          access: public
