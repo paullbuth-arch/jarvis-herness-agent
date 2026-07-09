@@ -1,10 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "version": "1.17.15",
+  "version": "0.1.0",
   "name": "opencode",
-  "type": "module",
+  "description": "WQ7036AX Jarvis Agent — SDK-aware coding agent for the V861 reGlasses platform",
   "license": "MIT",
-  "private": true,
+  "homepage": "https://github.com/paullbuth-arch/jarvis-herness-agent",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paullbuth-arch/jarvis-herness-agent.git"
+  },
   "scripts": {
     "typecheck": "tsgo --noEmit",
     "test": "bun test --timeout 30000 --only-failures",
