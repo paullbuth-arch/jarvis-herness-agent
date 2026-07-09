@@ -8,8 +8,8 @@ const AGENT_DIR = path.dirname(AGENT_PY)
 const PYENV: Record<string, string> = { PYTHONPYCACHEPREFIX: "/tmp/wq-jarvis-pycache" }
 
 function runAgent(args: string[], timeoutMs = 60_000): Effect.Effect<{ stdout: string; stderr: string; status: number }> {
-  return Effect.try({
-    try: () => {
+  return Effect.sync(() => {
+    try {
       const result = spawnSync("python3", [AGENT_PY, ...args], {
         cwd: AGENT_DIR,
         env: { ...process.env, ...PYENV },
@@ -22,12 +22,13 @@ function runAgent(args: string[], timeoutMs = 60_000): Effect.Effect<{ stdout: s
         stderr: (result.stderr || "").trim(),
         status: result.status ?? 1,
       }
-    },
-    catch: (error) => ({
-      stdout: "",
-      stderr: `agent.py execution failed: ${error instanceof Error ? error.message : String(error)}`,
-      status: 1,
-    }),
+    } catch (error) {
+      return {
+        stdout: "",
+        stderr: `agent.py execution failed: ${error instanceof Error ? error.message : String(error)}`,
+        status: 1,
+      }
+    }
   })
 }
 
@@ -133,7 +134,7 @@ export const WqSttpDebugTool = Tool.define(
 // ---------------------------------------------------------------------------
 
 const ReleaseCheckParams = Schema.Struct({
-  scope: Schema.optional(Schema.Literal("full", "quick", "protocol")).annotate({
+  scope: Schema.optional(Schema.Literals(["full", "quick", "protocol"])).annotate({
     description: "Scope: full (all checks), quick (critical only), protocol (headers only)",
   }),
 })
@@ -213,7 +214,7 @@ export const WqSdkEditGuardTool = Tool.define(
 // ---------------------------------------------------------------------------
 
 const BaselineParams = Schema.Struct({
-  action: Schema.Literal("changed", "diff", "status").annotate({
+  action: Schema.Literals(["changed", "diff", "status"]).annotate({
     description: "changed (list changed files), diff (show diff), status (full status)",
   }),
 })

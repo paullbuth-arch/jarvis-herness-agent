@@ -116,9 +116,23 @@ const layer = Layer.effect(
     const codeModeTool = codeMode ? yield* codeMode.CodeModeTool : undefined
 
     // Initialize WQ7036 Jarvis tools
-    const wqTools = yield* Effect.all(WqToolInfos.map((info) => Tool.init(info)))
-    const wqSessionRecord = yield* Tool.init(WqSessionRecordTool)
-    const wqSessionSummary = yield* Tool.init(WqSessionSummaryTool)
+    const wqToolInfos = yield* Effect.all(WqToolInfos)
+    const wqSessionRecordInfo = yield* WqSessionRecordTool
+    const wqSessionSummaryInfo = yield* WqSessionSummaryTool
+    const wqToolDefs = yield* Effect.all([
+      Tool.init(wqToolInfos[0]),
+      Tool.init(wqToolInfos[1]),
+      Tool.init(wqToolInfos[2]),
+      Tool.init(wqToolInfos[3]),
+      Tool.init(wqToolInfos[4]),
+      Tool.init(wqToolInfos[5]),
+      Tool.init(wqToolInfos[6]),
+      Tool.init(wqToolInfos[7]),
+      Tool.init(wqToolInfos[8]),
+      Tool.init(wqSessionRecordInfo),
+      Tool.init(wqSessionSummaryInfo),
+    ])
+    const [wqTool0, wqTool1, wqTool2, wqTool3, wqTool4, wqTool5, wqTool6, wqTool7, wqTool8, wqSessionRecord, wqSessionSummary] = wqToolDefs
 
     const state = yield* InstanceState.make<State>(
       Effect.fn("ToolRegistry.state")(function* (ctx) {
@@ -248,7 +262,15 @@ const layer = Layer.effect(
             ...(tool.execute ? [tool.execute] : []),
             ...(flags.experimentalLspTool ? [tool.lsp] : []),
             ...(flags.experimentalPlanMode && flags.client === "cli" ? [tool.plan] : []),
-            ...wqTools,
+            wqTool0,
+            wqTool1,
+            wqTool2,
+            wqTool3,
+            wqTool4,
+            wqTool5,
+            wqTool6,
+            wqTool7,
+            wqTool8,
             wqSessionRecord,
             wqSessionSummary,
           ],

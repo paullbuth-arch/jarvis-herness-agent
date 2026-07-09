@@ -20,7 +20,7 @@ function ensureDir(dir: string) {
 
 const SessionRecordParams = Schema.Struct({
   session_id: Schema.String.annotate({ description: "Session ID" }),
-  artifact_type: Schema.Literal("conversation", "commands", "findings", "tests", "risks").annotate({
+  artifact_type: Schema.Literals(["conversation", "commands", "findings", "tests", "risks"]).annotate({
     description: "Artifact type to record",
   }),
   content: Schema.String.annotate({ description: "Content to append to the artifact" }),
