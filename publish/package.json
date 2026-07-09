@@ -1,6 +1,6 @@
 {
   "name": "jarvis-herness-agent",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "WQ7036AX Jarvis Agent — SDK-aware coding agent for the V861 reGlasses platform",
   "license": "MIT",
   "homepage": "https://github.com/paullbuth-arch/jarvis-herness-agent",

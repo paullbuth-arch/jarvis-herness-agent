@@ -57,8 +57,14 @@ jobs:
 
       - name: Publish to npm
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > publish/.npmrc
+          echo "=== Testing npm connectivity ==="
+          curl -sI https://registry.npmjs.org/ | head -3
+          echo "=== Checking token ==="
+          echo "${NPM_TOKEN}" | cut -c1-10
+          echo "=== Publishing ==="
+          npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
           cd publish
-          npm publish --access public
+          npm whoami || echo "AUTH FAILED"
+          npm publish --access public 2>&1
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
